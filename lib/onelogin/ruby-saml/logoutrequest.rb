@@ -48,19 +48,7 @@ module OneLogin
           issuer.text = settings.issuer
         end
 
-        if settings.name_identifier_value
-          name_id = root.add_element "saml:NameID", { "xmlns:saml" => "urn:oasis:names:tc:SAML:2.0:assertion" }
-          name_id.attributes['NameQualifier'] = settings.sp_name_qualifier if settings.sp_name_qualifier
-          name_id.attributes['Format'] = settings.name_identifier_format if settings.name_identifier_format
-          name_id.text = settings.name_identifier_value
-        else
-          raise ValidationError.new("Missing required name identifier")
-        end
 
-        if settings.sessionindex
-          sessionindex = root.add_element "samlp:SessionIndex", { "xmlns:samlp" => "urn:oasis:names:tc:SAML:2.0:protocol" }
-          sessionindex.text = settings.sessionindex
-        end
 
         # BUG fix here -- if an authn_context is defined, add the tags with an "exact"
         # match required for authentication to succeed.  If this is not defined,
@@ -80,6 +68,14 @@ module OneLogin
           request_doc.sign_document(settings.private_key, settings.certificate, settings.signature_method, settings.digest_method)
         end
 
+        if settings.name_identifier_value
+          name_id = root.add_element "saml:NameID", { "xmlns:saml" => "urn:oasis:names:tc:SAML:2.0:assertion" }
+          name_id.attributes['NameQualifier'] = settings.sp_name_qualifier if settings.sp_name_qualifier
+          name_id.attributes['Format'] = settings.name_identifier_format if settings.name_identifier_format
+          name_id.text = settings.name_identifier_value
+        else
+          raise ValidationError.new("Missing required name identifier")
+        end
 
         if settings.sessionindex
           sessionindex = root.add_element "samlp:SessionIndex"
