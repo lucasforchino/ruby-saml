@@ -112,7 +112,7 @@ module XMLSecurity
       reference_element.add_element("DigestValue").text = compute_digest(canon_doc, algorithm(digest_method_element))
 
       # Add Transforms
-      transforms_element = reference_element.add_element("Transforms")
+      transforms_element = signed_info_element.add_element("Transforms")
       transforms_element.add_element("Transform", {"Algorithm" => ENVELOPED_SIG})
       transforms_element.add_element("Transform", {"Algorithm" => C14N})
       transforms_element.add_element("InclusiveNamespaces", {"xmlns" => C14N, "PrefixList" => INC_PREFIX_LIST})
