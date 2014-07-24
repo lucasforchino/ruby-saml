@@ -58,7 +58,7 @@ module OneLogin
         end
 
         if settings.sessionindex
-          sessionindex = root.add_element "SessionIndex"
+          sessionindex = root.add_element "samlp:SessionIndex"
           sessionindex.text = settings.sessionindex
         end
 
