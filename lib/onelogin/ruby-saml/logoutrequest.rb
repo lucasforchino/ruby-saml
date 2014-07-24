@@ -58,7 +58,7 @@ module OneLogin
         end
 
         if settings.sessionindex
-          sessionindex = root.add_element "samlp:SessionIndex"
+          sessionindex = root.add_element "SessionIndex", { "xmlns:samlp" => "urn:oasis:names:tc:SAML:2.0:protocol" }
           sessionindex.text = settings.sessionindex
         end
 
