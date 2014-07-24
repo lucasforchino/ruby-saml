@@ -57,10 +57,6 @@ module OneLogin
           raise ValidationError.new("Missing required name identifier")
         end
 
-        if settings.sessionindex
-          sessionindex = root.add_element "SessionIndex", { "xmlns:samlp" => "urn:oasis:names:tc:SAML:2.0:protocol" }
-          sessionindex.text = settings.sessionindex
-        end
 
         # BUG fix here -- if an authn_context is defined, add the tags with an "exact"
         # match required for authentication to succeed.  If this is not defined,
@@ -78,6 +74,10 @@ module OneLogin
 
         if settings.sign_request && settings.private_key && settings.certificate
           request_doc.sign_document(settings.private_key, settings.certificate, settings.signature_method, settings.digest_method)
+        end
+        if settings.sessionindex
+          sessionindex = root.add_element "SessionIndex", { "xmlns:samlp" => "urn:oasis:names:tc:SAML:2.0:protocol" }
+          sessionindex.text = settings.sessionindex
         end
 
         request_doc
