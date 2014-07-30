@@ -143,6 +143,7 @@ module XMLSecurity
     protected
 
     def compute_signature(private_key, signature_algorithm, document)
+      puts "UNCODED KEY ".private_key.sign(signature_algorithm, document)
       Base64.encode64(private_key.sign(signature_algorithm, document)).gsub(/\n/, "")
     end
 
