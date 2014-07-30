@@ -143,7 +143,7 @@ module XMLSecurity
     protected
 
     def compute_signature(private_key, signature_algorithm, document)
-      Base64.encode64(private_key.sign(signature_algorithm, document).gsub(/\n/, "")).gsub(/\n/, "")
+      Base64.encode64(private_key.sign(signature_algorithm, document)).gsub(/\n/, "")
     end
 
     def compute_digest(document, digest_algorithm)
