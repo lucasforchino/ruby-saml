@@ -123,7 +123,7 @@ module XMLSecurity
       # add SignatureValue
       noko_sig_element = Nokogiri.parse(signature_element.to_s)
       noko_signed_info_element = noko_sig_element.at_xpath('//ds:SignedInfo', 'ds' => DSIG)
-      canon_string = noko_signed_info_element.canonicalize(canon_algorithm(C14N))
+      canon_string = noko_signed_info_element.canonicalize(canon_algorithm(C14N)).gsub(/&\s/,'&amp; ')
       signature = compute_signature(private_key, algorithm(signature_method).new, canon_string)
       signature_element.add_element("SignatureValue").text = signature
 
